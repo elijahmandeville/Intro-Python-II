@@ -1,4 +1,9 @@
 from room import Room
+from player import Player
+from weapon import Weapon
+
+# Declare the meaning of life itself
+life = True
 
 # Declare all the rooms
 
@@ -37,7 +42,15 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+# Initalize name and weapon
+new_name = input("What is your name, adventurer? ")
+initial_weapon = Weapon("Bare Fists", 5, 1)
+
 # Make a new player object that is currently in the 'outside' room.
+
+new_player = Player(new_name, room["outside"], initial_weapon)
+
+print(new_player)
 
 # Write a loop that:
 #
@@ -49,3 +62,54 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+def check_movement(player, direction):
+    global life
+    try:
+        # North
+        if direction == "w":
+            if(player.current_room.n_to == None):
+                print("Sorry, you can't move here!")
+            else:
+                player.current_room = player.current_room.n_to
+                print("You have moved!")
+            print(f"Current location: {new_player.current_room.name}")
+        # East
+        if direction == "d":
+            if(player.current_room.e_to == None):
+                print("Sorry, you can't move here!")
+            else:
+                player.current_room = player.current_room.e_to
+                print("You have moved!")
+            print(f"Current location: {new_player.current_room.name}")
+        # South
+        if direction == "s":
+            if(player.current_room.s_to == None):
+                print("Sorry, you can't move here!")
+            else:
+                player.current_room = player.current_room.s_to
+                print("You have moved!")
+            print(f"Current location: {new_player.current_room.name}")
+        # West
+        if direction == "a":
+            if(player.current_room.w_to == None):
+                print("Sorry, you can't move here!")
+            else:
+                player.current_room = player.current_room.w_to
+                print("You have moved!")
+            print(f"Current location: {new_player.current_room.name}")
+    except Exception:
+        print("You cannot move here")
+
+
+while life == True:
+
+    selection = input(
+        f"{new_player.name}, what would you like to do from here? ")
+
+    try:
+        check_movement(new_player, selection)
+
+    except Exception:
+        print("Please enter a valid value")
