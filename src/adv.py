@@ -1,7 +1,9 @@
 from room import Room
 from player import Player
-from item import Weapon
+from item import Weapon, Item
 from inventory import Inventory
+from add_items import addItems
+
 
 # Declare the meaning of life itself
 life = True
@@ -10,7 +12,7 @@ life = True
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", ["candy", "cigs", "bacon"]),
+                     "North of you, the cave mount beckons", []),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""", []),
@@ -43,10 +45,14 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+# Initalize room items
+
+addItems(room)
+
 # Initalize player, name and weapon
 new_name = input("What is your name, adventurer? ")
 initial_weapon = Weapon("Bare Fists", "It's literally just your fists", 5)
-player_inventory = Inventory([], 12)
+player_inventory = Inventory([], 2)
 
 new_player = Player(new_name, room["outside"],
                     initial_weapon, player_inventory)
